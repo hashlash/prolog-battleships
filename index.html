@@ -1,31 +1,36 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/static/battleships.css">
+<script src="/static/battleships.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        var battleships = new Battleships(12, 12,
+                                          [0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,0,0,8,0,0,0,0,0,0,3,
+                                           0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,0,0,0,0,0,3,0,0,0,0,
+                                           0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,0,0,0,0,0,0,8,0,0,0,
+                                           0,0,0,0,0,0,0,0,0,0,0,0,
+                                           0,0,7,0,0,0,0,0,0,0,0,0],
+                                          [0,2,6,2,2,3,1,1,2,6,0,2],
+                                          [3,1,3,1,1,5,0,2,1,7,1,2],
+                                          [4,4,2,1,1]),
+            battleshipsManager = new BattleshipsManager(battleships);
+        battleshipsManager.initialize()
+    })
+</script>
 </head>
 <body style="background-color: azure">
 <div class="puzzle-block">
   <div class="puzzle-container">
-    <ul id="vertical-clues" class="clues">
-      <li>3</li>
-      <li>2</li>
-      <li>1</li>
-    </ul>
-    <ul id="horizontal-clues" class="clues">
-      <li>3</li>
-      <li>3</li>
-      <li>3</li>
-    </ul>
-    <div id="puzzle-board">
-      <div class="puzzle-cell">1</div>
-      <div class="puzzle-cell">2</div>
-      <div class="puzzle-cell">3</div>
-      <div class="puzzle-cell">4</div>
-      <div class="puzzle-cell">5</div>
-      <div class="puzzle-cell">6</div>
-      <div class="puzzle-cell">7</div>
-      <div class="puzzle-cell">8</div>
-      <div class="puzzle-cell">9</div>
-    </div>
+    <ul id="vertical-clues" class="clues"></ul>
+    <ul id="horizontal-clues" class="clues"></ul>
+    <div id="puzzle-board"></div>
   </div>
 </div>
 </body>
