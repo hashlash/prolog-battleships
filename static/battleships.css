@@ -47,3 +47,30 @@
     align-items: center;
     background-color: white;
 }
+.segment-1 {
+    background: url('/static/img/empty.png') center no-repeat white;
+}
+.segment-2 {
+    background: url('/static/img/unknown.png') center no-repeat white;
+}
+.segment-3 {
+    background: url('/static/img/single.png') center no-repeat white;
+}
+.segment-4 {
+    background: url('/static/img/up.png') center no-repeat white;
+}
+.segment-5 {
+    background: url('/static/img/right.png') center no-repeat white;
+}
+.segment-6 {
+    background: url('/static/img/down.png') center no-repeat white;
+}
+.segment-7 {
+    background: url('/static/img/left.png') center no-repeat white;
+}
+.segment-8 {
+    background: url('/static/img/horizontal.png') center no-repeat white;
+}
+.segment-9 {
+    background: url('/static/img/vertical.png') center no-repeat white;
+}

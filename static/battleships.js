@@ -11,10 +11,10 @@ function Battleships(nrOfColumns, nrOfRows, initial, horizontalClues, verticalCl
     this.SHIP_PIECE_MIDSECTION_VERTICAL = 9,
     this.nrOfColumns = nrOfColumns,
     this.nrOfRows = nrOfRows,
-    this.startingGrid = initial.slice(0),
     this.horizontalClues = horizontalClues.slice(0),
     this.verticalClues = verticalClues.slice(0),
-    this.shipCounts = shipCounts.slice(0);
+    this.shipCounts = shipCounts.slice(0),
+    this.puzzleGrid = Array(nrOfRows).fill(0).map((_, i) => initial.slice(i * nrOfColumns, (i + 1) * nrOfColumns));
 }
 
 Battleships.prototype.getNrOfColumns = function() {
@@ -25,8 +25,8 @@ Battleships.prototype.getNrOfRows = function() {
     return this.nrOfRows
 }
 
-Battleships.prototype.getStartingGrid = function() {
-    return this.startingGrid
+Battleships.prototype.getPuzzleGrid = function() {
+    return this.puzzleGrid
 }
 
 Battleships.prototype.getHorizontalClues = function() {
@@ -48,21 +48,22 @@ function BattleshipsManager(battleships) {
 
 BattleshipsManager.prototype.initialize = function() {
     this.battleships.getHorizontalClues().forEach(clue => {
-        li = document.createElement('li'),
+        var li = document.createElement('li');
         li.innerHTML = clue,
         this.horizontalClueDOM.appendChild(li)
     }),
     this.battleships.getVerticalClues().forEach(clue => {
-        li = document.createElement('li'),
+        var li = document.createElement('li');
         li.innerHTML = clue,
         this.verticalClueDOM.appendChild(li)
     }),
-    this.battleships.getStartingGrid().forEach(segment => {
-        e = document.createElement('div'),
+    this.battleships.getPuzzleGrid().forEach((row, i) => row.forEach((segment, j) => {
+        var e = document.createElement('div');
         e.classList.add('puzzle-cell'),
-        e.innerHTML = segment,
+        e.classList.add(`segment-${segment}`),
+        e.classList.add(`cell-${i}-${j}`),
         this.boardDOM.appendChild(e)
-    }),
+    })),
     this.boardDOM.style.gridTemplateColumns = `repeat(${this.battleships.getNrOfColumns()}, ${this.cellWidth}px)`,
     this.boardDOM.style.gridTemplateRows = `repeat(${this.battleships.getNrOfRows()}, ${this.cellHeight}px)`
 }
