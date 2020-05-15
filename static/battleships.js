@@ -57,11 +57,18 @@ BattleshipsManager.prototype.initialize = function() {
         li.innerHTML = clue,
         this.verticalClueDOM.appendChild(li)
     }),
-    this.battleships.getPuzzleGrid().forEach((row, i) => row.forEach((segment, j) => {
+    this.battleships.getPuzzleGrid().forEach((row, i, puzzleGrid) => row.forEach((segment, j) => {
         var e = document.createElement('div');
+        e.id = `cell-${i}-${j}`,
         e.classList.add('puzzle-cell'),
         e.classList.add(`segment-${segment}`),
-        e.classList.add(`cell-${i}-${j}`),
+        e.addEventListener('click', e => {
+            var currentSegment = puzzleGrid[i][j],
+                nextSegment = (currentSegment + 1) % 10;
+            e.target.classList.remove(`segment-${currentSegment}`),
+            this.battleships.getPuzzleGrid()[i][j] = nextSegment,
+            e.target.classList.add(`segment-${nextSegment}`)
+        }),
         this.boardDOM.appendChild(e)
     })),
     this.boardDOM.style.gridTemplateColumns = `repeat(${this.battleships.getNrOfColumns()}, ${this.cellWidth}px)`,
