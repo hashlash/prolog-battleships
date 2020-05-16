@@ -6,11 +6,9 @@ PORT = 8000
 
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == '/':
-            self.path = 'templates/index.html'
-        
-        http.server.SimpleHTTPRequestHandler.do_GET(self)
+    def __init__(self, *args, **kwargs):
+        kwargs['directory'] = 'frontend/'
+        super().__init__(*args, **kwargs)
 
     def do_POST(self):
         length = self.headers['content-length']
