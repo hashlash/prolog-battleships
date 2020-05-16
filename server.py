@@ -1,13 +1,11 @@
 import socketserver
 import http.server
 import json
-from battleship import solve
-
+from battleship import PrologAny, solve
 
 PORT = 8000
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
-
     def do_GET(self):
         if self.path == '/':
             self.path = 'templates/index.html'
@@ -21,7 +19,7 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         ships = data['ships']
         row_clues = data['rowClues']
         col_clues = data['colClues']
-        grid = data['grid']
+        grid = [[PrologAny() if x is None else int(x) for x in l] for l in data['grid']]
         response = solve(ships, row_clues, col_clues, grid)
         print(next(response)) # error here, unable to access generator object
         self.send_response(200)
