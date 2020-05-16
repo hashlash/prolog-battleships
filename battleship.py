@@ -8,7 +8,6 @@ prolog.consult("battleship.pl")
 def solve(Ships, Nrow, Ncol, Rows):
     return prolog.query(
             "setof(Rows, battleship({}, {}, {}, {}), List)".format(
-                Ships, Nrow, Ncol, Rows,
                 Ships, Nrow, Ncol, Rows
             ))
 
