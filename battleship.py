@@ -6,13 +6,11 @@ prolog = Prolog()
 prolog.consult("battleship.pl")
 
 def solve(Ships, Nrow, Ncol, Rows):
-    return list(prolog.query(
+    return prolog.query(
             "problem(1, {}, {}, {}, {}), setof(Rows, battleship({}, {}, {}, {}), List)".format(
                 Ships, Nrow, Ncol, Rows,
                 Ships, Nrow, Ncol, Rows
-            )
-    ))
-    return result[0]
+            ))
 
 
 if __name__ == "__main__":
