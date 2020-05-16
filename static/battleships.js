@@ -37,12 +37,21 @@ Battleships.prototype.getVerticalClues = function() {
     return this.verticalClues
 }
 
+Battleships.prototype.getShipCounts = function() {
+    return this.shipCounts
+}
+
+Battleships.prototype.setShipCounts = function(shipCounts) {
+    this.shipCounts = shipCounts
+}
+
 function BattleshipsManager(battleships) {
     this.battleships = battleships,
     this.cellWidth = 50,
     this.cellHeight = 50,
     this.horizontalClueDOM = document.getElementById('horizontal-clues'),
     this.verticalClueDOM = document.getElementById('vertical-clues'),
+    this.shipsDOM = document.getElementById('ships-list')
     this.boardDOM = document.getElementById('puzzle-board')
 }
 
@@ -79,5 +88,7 @@ BattleshipsManager.prototype.initialize = function() {
         this.boardDOM.appendChild(e)
     })),
     this.boardDOM.style.gridTemplateColumns = `repeat(${this.battleships.getNrOfColumns()}, ${this.cellWidth}px)`,
-    this.boardDOM.style.gridTemplateRows = `repeat(${this.battleships.getNrOfRows()}, ${this.cellHeight}px)`
+    this.boardDOM.style.gridTemplateRows = `repeat(${this.battleships.getNrOfRows()}, ${this.cellHeight}px)`,
+    this.shipsDOM.value = this.battleships.getShipCounts().join(' '),
+    this.shipsDOM.addEventListener('change', e => this.battleships.setShipCounts(e.target.value.split(' ').map(Number)))
 }

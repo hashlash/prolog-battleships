@@ -36,10 +36,17 @@
   <input type="submit" value="Create Empty Board">
 </form>
 <div class="puzzle-block">
-  <div class="puzzle-container">
-    <div id="vertical-clues" class="clues"></div>
-    <div id="horizontal-clues" class="clues"></div>
-    <div id="puzzle-board"></div>
+  <div>
+    <label for="ships-list">List of ships length (seperated by space):</label><br>
+    <input id="ships-list" type="text" name="ships-list">
+  </div>
+  <div>
+    <p>Puzzle:</p>
+    <div class="puzzle-container">
+      <div id="vertical-clues" class="clues"></div>
+      <div id="horizontal-clues" class="clues"></div>
+      <div id="puzzle-board"></div>
+    </div>
   </div>
 </div>
 </body>
