@@ -16,12 +16,12 @@ def solve(Ships, Nrow, Ncol, Rows):
 
 
 if __name__ == "__main__":
-    result = list(prolog.query(
-        "problem(1, Ships, Nrow, Ncol, Rows), \
+    result = prolog.query(
+        "problem(2, Ships, Nrow, Ncol, Rows), \
         setof(Rows, battleship(Ships, Nrow, Ncol, Rows), List)"
-    ))
+    )
     if result:    
-        result = result[0]
+        result = next(result)
         for answer in result["List"]:
             pprint(answer)
     else:
