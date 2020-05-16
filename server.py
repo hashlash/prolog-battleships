@@ -1,7 +1,7 @@
 import socketserver
 import http.server
 import json
-from hello import solve
+from battleship import solve
 
 
 PORT = 8000
@@ -17,9 +17,13 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         length = self.headers['content-length']
         data = self.rfile.read(int(length))
-        print(data.decode())
-        print(json.loads(data))
-        response = solve()
+        data = json.loads(data)
+        ships = data['ships']
+        row_clues = data['rowClues']
+        col_clues = data['colClues']
+        grid = data['grid']
+        response = solve(ships, row_clues, col_clues, grid)
+        print(next(response)) # error here, unable to access generator object
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
