@@ -47,6 +47,7 @@ function BattleshipsManager(battleships) {
 }
 
 BattleshipsManager.prototype.initialize = function() {
+    this.horizontalClueDOM.innerHTML = '',
     this.battleships.getHorizontalClues().forEach((clue, i, horizontalClues) => {
         var e = document.createElement('input');
         e.id = `row-${i}-clue`,
@@ -54,6 +55,7 @@ BattleshipsManager.prototype.initialize = function() {
         e.addEventListener('change', e => horizontalClues[i] = parseInt(e.target.value)),
         this.horizontalClueDOM.appendChild(e)
     }),
+    this.verticalClueDOM.innerHTML = '',
     this.battleships.getVerticalClues().forEach((clue, i, verticalClues) => {
         var e = document.createElement('input');
         e.id = `col-${i}-clue`,
@@ -61,6 +63,7 @@ BattleshipsManager.prototype.initialize = function() {
         e.addEventListener('change', e => verticalClues[i] = parseInt(e.target.value)),
         this.verticalClueDOM.appendChild(e)
     }),
+    this.boardDOM.innerHTML = '',
     this.battleships.getPuzzleGrid().forEach((row, i, puzzleGrid) => row.forEach((segment, j) => {
         var e = document.createElement('div');
         e.id = `cell-${i}-${j}`,

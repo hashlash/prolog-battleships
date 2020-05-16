@@ -4,28 +4,37 @@
 <script src="/static/battleships.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
-        var battleships = new Battleships(12, 12,
-                                          [0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,0,0,8,0,0,0,0,0,0,3,
-                                           0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,0,0,0,0,0,3,0,0,0,0,
-                                           0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,0,0,0,0,0,0,8,0,0,0,
-                                           0,0,0,0,0,0,0,0,0,0,0,0,
-                                           0,0,7,0,0,0,0,0,0,0,0,0],
-                                          [0,2,6,2,2,3,1,1,2,6,0,2],
-                                          [3,1,3,1,1,5,0,2,1,7,1,2],
-                                          [4,4,2,1,1]),
-            battleshipsManager = new BattleshipsManager(battleships);
-        battleshipsManager.initialize()
+        document.getElementById('puzzle-size-input').addEventListener('submit', e => {
+            e.preventDefault();
+
+            var data = new FormData(e.target),
+                it = data.values(),
+                row = parseInt(it.next().value),
+                col = parseInt(it.next().value),
+                battleships = new Battleships(col, row,
+                                              Array(row*col).fill(0),
+                                              Array(row).fill(0),
+                                              Array(col).fill(0),
+                                              []),
+                battleshipsManager = new BattleshipsManager(battleships);
+
+            battleshipsManager.initialize()
+        });
     })
 </script>
 </head>
 <body style="background-color: azure">
+<form id="puzzle-size-input" enctype="multipart/form-data">
+  <div>
+    <label for="row">Number of rows: </label>
+    <input type="text" name="row">
+  </div>
+  <div>
+    <label for="col">Number of cols: </label>
+    <input type="text" name="col">
+  </div>
+  <input type="submit" value="Create Empty Board">
+</form>
 <div class="puzzle-block">
   <div class="puzzle-container">
     <div id="vertical-clues" class="clues"></div>
