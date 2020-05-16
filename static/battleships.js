@@ -3,10 +3,10 @@ function Battleships(nrOfColumns, nrOfRows, initial, horizontalClues, verticalCl
     this.SHIP_PIECE_EMPTY = 1,
     this.SHIP_PIECE_IMPLIED = 2,
     this.SHIP_PIECE_SUBMARINE = 3,
-    this.SHIP_PIECE_END_UP = 4,
-    this.SHIP_PIECE_END_RIGHT = 5,
-    this.SHIP_PIECE_END_DOWN = 6,
-    this.SHIP_PIECE_END_LEFT = 7,
+    this.SHIP_PIECE_END_DOWN = 4,
+    this.SHIP_PIECE_END_LEFT = 5,
+    this.SHIP_PIECE_END_UP = 6,
+    this.SHIP_PIECE_END_RIGHT = 7,
     this.SHIP_PIECE_MIDSECTION_HORIZONTAL = 8,
     this.SHIP_PIECE_MIDSECTION_VERTICAL = 9,
     this.nrOfColumns = nrOfColumns,
@@ -85,22 +85,22 @@ Battleships.prototype.getBoolPuzzle = function() {
                 if (isInside(i, j-1)) force(i, j-1, false);
                 if (isInside(i, j+1)) force(i, j+1, false);
                 break;
-            case this.SHIP_PIECE_END_UP:
+            case this.SHIP_PIECE_END_DOWN:
                 boolPuzzle[i][j] = true;
                 if (isInside(i-1, j)) force(i-1, j, false);
                 if (isInside(i+1, j)) force(i+1, j, true);
                 break;
-            case this.SHIP_PIECE_END_RIGHT:
+            case this.SHIP_PIECE_END_LEFT:
                 boolPuzzle[i][j] = true;
                 if (isInside(i, j-1)) force(i, j-1, true);
                 if (isInside(i, j+1)) force(i, j+1, false);
                 break;
-            case this.SHIP_PIECE_END_DOWN:
+            case this.SHIP_PIECE_END_UP:
                 boolPuzzle[i][j] = true;
                 if (isInside(i-1, j)) force(i-1, j, true);
                 if (isInside(i+1, j)) force(i+1, j, false);
                 break;
-            case this.SHIP_PIECE_END_LEFT:
+            case this.SHIP_PIECE_END_RIGHT:
                 boolPuzzle[i][j] = true;
                 if (isInside(i, j-1)) force(i, j-1, false);
                 if (isInside(i, j+1)) force(i, j+1, true);
