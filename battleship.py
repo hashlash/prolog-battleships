@@ -7,7 +7,7 @@ prolog.consult("battleship.pl")
 
 def solve(Ships, Nrow, Ncol, Rows):
     return prolog.query(
-            "problem(1, {}, {}, {}, {}), setof(Rows, battleship({}, {}, {}, {}), List)".format(
+            "setof(Rows, battleship({}, {}, {}, {}), List)".format(
                 Ships, Nrow, Ncol, Rows,
                 Ships, Nrow, Ncol, Rows
             ))
