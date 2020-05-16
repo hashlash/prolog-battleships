@@ -180,5 +180,14 @@ BattleshipsManager.prototype.getSolution = function() {
         rowClues: this.battleships.getHorizontalClues(),
         grid: this.battleships.getBoolPuzzle(),
     };
-    console.log(puzzleJSON);
+    fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(puzzleJSON),
+        }).then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
 }
