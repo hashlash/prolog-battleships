@@ -1,6 +1,10 @@
 # prolog-battleships
 Battleships Puzzle Implementation using Prolog
 
+To run directly the Prolog file:
+
+`swipl battleship.pl`
+
 Example query:
 
 ```prolog
