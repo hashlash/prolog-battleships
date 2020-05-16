@@ -47,15 +47,19 @@ function BattleshipsManager(battleships) {
 }
 
 BattleshipsManager.prototype.initialize = function() {
-    this.battleships.getHorizontalClues().forEach(clue => {
-        var li = document.createElement('li');
-        li.innerHTML = clue,
-        this.horizontalClueDOM.appendChild(li)
+    this.battleships.getHorizontalClues().forEach((clue, i, horizontalClues) => {
+        var e = document.createElement('input');
+        e.id = `row-${i}-clue`,
+        e.value = clue,
+        e.addEventListener('change', e => horizontalClues[i] = parseInt(e.target.value)),
+        this.horizontalClueDOM.appendChild(e)
     }),
-    this.battleships.getVerticalClues().forEach(clue => {
-        var li = document.createElement('li');
-        li.innerHTML = clue,
-        this.verticalClueDOM.appendChild(li)
+    this.battleships.getVerticalClues().forEach((clue, i, verticalClues) => {
+        var e = document.createElement('input');
+        e.id = `col-${i}-clue`,
+        e.value = clue,
+        e.addEventListener('change', e => verticalClues[i] = parseInt(e.target.value)),
+        this.verticalClueDOM.appendChild(e)
     }),
     this.battleships.getPuzzleGrid().forEach((row, i, puzzleGrid) => row.forEach((segment, j) => {
         var e = document.createElement('div');
@@ -66,8 +70,8 @@ BattleshipsManager.prototype.initialize = function() {
             var currentSegment = puzzleGrid[i][j],
                 nextSegment = (currentSegment + 1) % 10;
             e.target.classList.remove(`segment-${currentSegment}`),
-            this.battleships.getPuzzleGrid()[i][j] = nextSegment,
-            e.target.classList.add(`segment-${nextSegment}`)
+            e.target.classList.add(`segment-${nextSegment}`),
+            puzzleGrid[i][j] = nextSegment
         }),
         this.boardDOM.appendChild(e)
     })),

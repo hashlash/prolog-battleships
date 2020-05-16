@@ -5,7 +5,7 @@
     grid-template-rows: repeat(2, max-content);
     grid-template-columns: repeat(2, max-content);
     grid-row-gap: 5px;
-    grid-column-gap: 15px;
+    grid-column-gap: 5px;
 }
 #vertical-clues {
     grid-row: 1;
@@ -28,10 +28,14 @@
     margin: 0;
     padding: 0;
 }
-.clues li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.clues input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: x-large;
+    background: transparent;
+    border: none;
+    outline: none;
 }
 #puzzle-board {
     grid-row: 2;
@@ -40,6 +44,7 @@
     display: grid;
     grid-gap: 1px;
     background-color: black;
+    border: 1px solid black;
 }
 .puzzle-cell {
     display: flex;
