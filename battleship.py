@@ -19,4 +19,5 @@ def grid_none_to_prologany(grid):
 
 def solve(ships, row_clues, col_clues, grid):
     query = f'Rows={grid}, setof(Rows, battleship({ships}, {row_clues}, {col_clues}, Rows), List)'
-    return prolog.query(query)
+    result = prolog.query(query)
+    return next(result)['List']
