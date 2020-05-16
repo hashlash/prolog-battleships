@@ -20,12 +20,12 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         row_clues = data['rowClues']
         col_clues = data['colClues']
         grid = [[PrologAny() if x is None else int(x) for x in l] for l in data['grid']]
-        response = solve(ships, row_clues, col_clues, grid)
-        print(next(response)) 
+        result = solve(ships, row_clues, col_clues, grid)
+        response = next(result)
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-        self.wfile.write(json.dumps(response).encode())  # send response
+        self.wfile.write(json.dumps(response['List']).encode())  # send response
 
 
 httpd = http.server.HTTPServer(('', PORT), CustomHandler)
