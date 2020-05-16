@@ -87,23 +87,23 @@ Battleships.prototype.getBoolPuzzle = function() {
                 break;
             case this.SHIP_PIECE_END_DOWN:
                 boolPuzzle[i][j] = true;
-                if (isInside(i-1, j)) force(i-1, j, false);
-                if (isInside(i+1, j)) force(i+1, j, true);
-                break;
-            case this.SHIP_PIECE_END_LEFT:
-                boolPuzzle[i][j] = true;
-                if (isInside(i, j-1)) force(i, j-1, true);
-                if (isInside(i, j+1)) force(i, j+1, false);
-                break;
-            case this.SHIP_PIECE_END_UP:
-                boolPuzzle[i][j] = true;
                 if (isInside(i-1, j)) force(i-1, j, true);
                 if (isInside(i+1, j)) force(i+1, j, false);
                 break;
-            case this.SHIP_PIECE_END_RIGHT:
+            case this.SHIP_PIECE_END_LEFT:
                 boolPuzzle[i][j] = true;
                 if (isInside(i, j-1)) force(i, j-1, false);
                 if (isInside(i, j+1)) force(i, j+1, true);
+                break;
+            case this.SHIP_PIECE_END_UP:
+                boolPuzzle[i][j] = true;
+                if (isInside(i-1, j)) force(i-1, j, false);
+                if (isInside(i+1, j)) force(i+1, j, true);
+                break;
+            case this.SHIP_PIECE_END_RIGHT:
+                boolPuzzle[i][j] = true;
+                if (isInside(i, j-1)) force(i, j-1, true);
+                if (isInside(i, j+1)) force(i, j+1, false);
                 break;
             case this.SHIP_PIECE_MIDSECTION_HORIZONTAL:
                 boolPuzzle[i][j] = true;
@@ -176,8 +176,8 @@ BattleshipsManager.prototype.getSolution = function() {
         rows: this.battleships.getNrOfRows(),
         cols: this.battleships.getNrOfColumns(),
         ships: this.battleships.getShipCounts(),
-        rowClues: this.battleships.getVerticalClues(),
-        colClues: this.battleships.getHorizontalClues(),
+        colClues: this.battleships.getVerticalClues(),
+        rowClues: this.battleships.getHorizontalClues(),
         grid: this.battleships.getBoolPuzzle(),
     };
     console.log(puzzleJSON);
