@@ -29,6 +29,32 @@ Battleships.prototype.getPuzzleGrid = function() {
     return this.puzzleGrid
 }
 
+Battleships.prototype.setPuzzleGridFromBool = function(puzzleGrid) {
+    var g = (i, j) => {
+        try { return puzzleGrid[i][j] }
+        catch { return false }
+    }
+    this.puzzleGrid = puzzleGrid.map((row, i) => row.map((x, j) =>
+        x ?
+            (!g(i-1, j) && !g(i+1, j) && !g(i, j-1) && !g(i, j+1) ?
+                this.SHIP_PIECE_EMPTY :
+            (!g(i-1, j) && !g(i+1, j) ?
+                (!g(i, j-1) ?
+                    this.SHIP_PIECE_END_LEFT :
+                (!g(i, j+1) ?
+                    this.SHIP_PIECE_END_RIGHT :
+                this.SHIP_PIECE_MIDSECTION_HORIZONTAL)) :
+            (!g(i, j-1) && !g(i, j+1) ?
+                (!g(i-1, j) ?
+                    this.SHIP_PIECE_END_UP :
+                (!g(i+1, j) ?
+                    this.SHIP_PIECE_END_DOWN :
+                this.SHIP_PIECE_MIDSECTION_VERTICAL)) :
+            null))) :
+        this.SHIP_PIECE_EMPTY
+    ))
+}
+
 Battleships.prototype.getHorizontalClues = function() {
     return this.horizontalClues
 }
@@ -188,6 +214,7 @@ BattleshipsManager.prototype.getSolution = function() {
             body: JSON.stringify(puzzleJSON),
         }).then(response => response.json())
         .then(data => {
-            console.log(data)
+            this.battleships.setPuzzleGridFromBool(data[0]),
+            this.initialize()
         })
 }
