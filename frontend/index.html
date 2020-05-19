@@ -1,0 +1,78 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/battleships.css">
+<script src="/static/battleships.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('puzzle-size-input').addEventListener('submit', e => {
+            e.preventDefault();
+
+            var data = new FormData(e.target),
+                it = data.values(),
+                row = parseInt(it.next().value),
+                col = parseInt(it.next().value),
+                battleships = new Battleships(col, row,
+                                              Array(row*col).fill(0),
+                                              Array(row).fill(0),
+                                              Array(col).fill(0),
+                                              []),
+                battleshipsManager = new BattleshipsManager(battleships);
+
+            battleshipsManager.initialize()
+        }),
+        document.getElementById('puzzlemadness-form').addEventListener('submit', e => {
+            e.preventDefault();
+
+            var data = new FormData(e.target),
+                it = data.values(),
+                puzzlemadnessUrl = it.next().value;
+
+            fetch('https://cors-anywhere.herokuapp.com/' + puzzlemadnessUrl)
+                .then(response => response.text())
+                .then(html => {
+                    var parser = new DOMParser(),
+                        doc = parser.parseFromString(html, 'text/html');
+
+                    eval(doc.scripts[4].innerHTML.split('\n').slice(2, 9).join('\n'));
+
+                    var battleshipsManager = new BattleshipsManager(battleships);
+                    battleshipsManager.initialize();
+                })
+        });
+    })
+</script>
+</head>
+<body style="background-color: azure">
+<form id="puzzle-size-input" enctype="multipart/form-data">
+  <div>
+    <label for="row">Number of rows: </label>
+    <input type="text" name="row">
+  </div>
+  <div>
+    <label for="col">Number of cols: </label>
+    <input type="text" name="col">
+  </div>
+  <input type="submit" value="Create Empty Board">
+</form>
+<form id="puzzlemadness-form" enctype="multipart/form-data">
+  <label for="puzzlemadnessurl"><a href="https://puzzlemadness.co.uk/battleships">Puzzlemadness</a> problem URL:</label><br>
+  <input type="url" name="puzzlemadnessurl">
+  <input type="submit" value="Get Puzzle">
+</form>
+<div class="puzzle-block">
+  <div>
+    <label for="ships-list">List of ships length (seperated by space):</label><br>
+    <input id="ships-list" type="text" name="ships-list">
+  </div>
+  <div>
+    <p>Puzzle:</p>
+    <div class="puzzle-container">
+      <div id="vertical-clues" class="clues"></div>
+      <div id="horizontal-clues" class="clues"></div>
+      <div id="puzzle-board"></div>
+    </div>
+  </div>
+  <div><button id="solve-button">Get solution</button></div>
+</div>
+</body>
+</html>

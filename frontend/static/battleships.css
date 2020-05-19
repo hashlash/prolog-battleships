@@ -1,0 +1,81 @@
+.puzzle-container {
+    display: grid;
+    width: fit-content;
+    padding: 10px;
+    grid-template-rows: repeat(2, max-content);
+    grid-template-columns: repeat(2, max-content);
+    grid-row-gap: 5px;
+    grid-column-gap: 5px;
+}
+#vertical-clues {
+    grid-row: 1;
+    grid-column: 2;
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 1px;
+
+    margin: 0;
+    padding: 0;
+}
+#horizontal-clues {
+    grid-row: 2;
+    grid-column: 1;
+
+    display: grid;
+    grid-gap: 1px;
+
+    margin: 0;
+    padding: 0;
+}
+.clues input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: x-large;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+#puzzle-board {
+    grid-row: 2;
+    grid-column: 2;
+
+    display: grid;
+    grid-gap: 1px;
+    background-color: black;
+    border: 1px solid black;
+}
+.puzzle-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+.segment-1 {
+    background: url('/static/img/empty.png') center no-repeat white;
+}
+.segment-2 {
+    background: url('/static/img/unknown.png') center no-repeat white;
+}
+.segment-3 {
+    background: url('/static/img/single.png') center no-repeat white;
+}
+.segment-4 {
+    background: url('/static/img/down.png') center no-repeat white;
+}
+.segment-5 {
+    background: url('/static/img/left.png') center no-repeat white;
+}
+.segment-6 {
+    background: url('/static/img/up.png') center no-repeat white;
+}
+.segment-7 {
+    background: url('/static/img/right.png') center no-repeat white;
+}
+.segment-8 {
+    background: url('/static/img/horizontal.png') center no-repeat white;
+}
+.segment-9 {
+    background: url('/static/img/vertical.png') center no-repeat white;
+}
