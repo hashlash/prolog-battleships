@@ -35,6 +35,8 @@
 
                     eval(doc.scripts[4].innerHTML.split('\n').slice(2, 9).join('\n'));
 
+                    battleships.setShipCounts(battleships.getShipCounts().map((x, i) => Array(x).fill(i+1)).flat())
+
                     var battleshipsManager = new BattleshipsManager(battleships);
                     battleshipsManager.initialize();
                 })
