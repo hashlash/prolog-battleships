@@ -214,7 +214,7 @@ BattleshipsManager.prototype.getSolution = function() {
             body: JSON.stringify(puzzleJSON),
         }).then(response => response.json())
         .then(data => {
-            this.battleships.setPuzzleGridFromBool(data[0]),
+            this.battleships.setPuzzleGridFromBool(data),
             this.initialize()
         })
 }

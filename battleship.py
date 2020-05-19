@@ -1,5 +1,4 @@
 from pyswip.prolog import Prolog
-from pprint import pprint
 
 prolog = Prolog()
 prolog.consult('battleship.pl')
@@ -18,6 +17,5 @@ def grid_none_to_prologany(grid):
 
 
 def solve(ships, row_clues, col_clues, grid):
-    query = f'Rows={grid}, setof(Rows, battleship({ships}, {row_clues}, {col_clues}, Rows), List)'
-    result = prolog.query(query)
-    return next(result)['List']
+    query = f'Rows={grid}, battleship({ships}, {row_clues}, {col_clues}, Rows)'
+    return prolog.query(query)

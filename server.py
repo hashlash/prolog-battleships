@@ -19,8 +19,8 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         col_clues = data['colClues']
         grid = [[PrologAny() if x is None else int(x) for x in l] for l in data['grid']]
         result = solve(ships, row_clues, col_clues, grid)
-        answers = result
-        response = [[[bool(x) for x in l] for l in ans] for ans in answers]
+        answer = next(result)['Rows']
+        response = [[bool(x) for x in l] for l in answer]
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
