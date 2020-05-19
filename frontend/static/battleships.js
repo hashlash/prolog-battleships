@@ -37,7 +37,7 @@ Battleships.prototype.setPuzzleGridFromBool = function(puzzleGrid) {
     this.puzzleGrid = puzzleGrid.map((row, i) => row.map((x, j) =>
         x ?
             (!g(i-1, j) && !g(i+1, j) && !g(i, j-1) && !g(i, j+1) ?
-                this.SHIP_PIECE_EMPTY :
+                this.SHIP_PIECE_SUBMARINE :
             (!g(i-1, j) && !g(i+1, j) ?
                 (!g(i, j-1) ?
                     this.SHIP_PIECE_END_LEFT :
@@ -214,7 +214,7 @@ BattleshipsManager.prototype.getSolution = function() {
             body: JSON.stringify(puzzleJSON),
         }).then(response => response.json())
         .then(data => {
-            this.battleships.setPuzzleGridFromBool(data[0]),
+            this.battleships.setPuzzleGridFromBool(data),
             this.initialize()
         })
 }
