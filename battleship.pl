@@ -11,8 +11,8 @@ battleship(Ships, Nrow, Ncol, Rows) :-
 	sum(Ships, #=, Nmul),
 		length(Omul, Nmul), maplist(=(1), Omul),
 		append(Omul, Ships, Sadv),
-	lines(Rows, Crow), lines(Cols, Ccol),
-	append(Crow, Ccol, C), permutation(Sadv, C),
+	lines(Rows, Crow), lines(Cols, Ccol), append(Crow, Ccol, C),
+	msort(C, Csort), msort(Sadv, Csort),
 	% no adjacent ship
 	same_length(ZeroRow, Cols), maplist(=(0), ZeroRow),
 		append([[ZeroRow], Rows, [ZeroRow]], TempRow),
