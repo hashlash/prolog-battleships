@@ -1,28 +1,28 @@
 :- use_module(library(clpfd)).
 
-battleship(Ships, Nrow, Ncol, Rows) :-
-	same_length(Nrow, Rows), maplist(same_length(Ncol), Rows),
+battleship(Ships, RowCl, ColCl, Rows) :-
+	same_length(RowCl, Rows), maplist(same_length(ColCl), Rows),
 	append(Rows, Vs), Vs ins 0..1,
 	transpose(Rows, Cols),
 	% row and col ship segment
-	maplist(sum_cons, Rows, Nrow),
-	maplist(sum_cons, Cols, Ncol),
+	maplist(sum_eq, Rows, RowCl),
+	maplist(sum_eq, Cols, ColCl),
 	% number of ships constraint
-	sum(Ships, #=, Nmul),
-		length(Omul, Nmul), maplist(=(1), Omul),
-		append(Omul, Ships, Sadv),
-	lines(Rows, Crow), lines(Cols, Ccol), append(Crow, Ccol, C),
-	msort(C, Csort), msort(Sadv, Csort),
+	sum_eq(Ships, SegC),
+		length(Ones, SegC), maplist(=(1), Ones),
+		append(Ones, Ships, ShipsAug),
+	lines(Rows, RowC), lines(Cols, ColC), append(RowC, ColC, Cs),
+	msort(Cs, SortedC), msort(ShipsAug, SortedC),
 	% no adjacent ship
-	same_length(ZeroRow, Cols), maplist(=(0), ZeroRow),
-		append([[ZeroRow], Rows, [ZeroRow]], TempRow),
-		transpose(TempRow, TempCol),
-	same_length(ZeroCol, TempRow), maplist(=(0), ZeroCol),
-		append([[ZeroCol], TempCol, [ZeroCol]], ColZ),
+	same_length(ZeroR, Cols), maplist(=(0), ZeroR),
+		append([[ZeroR], Rows, [ZeroR]], TempR),
+		transpose(TempR, TempC),
+	same_length(ZeroC, TempR), maplist(=(0), ZeroC),
+		append([[ZeroC], TempC, [ZeroC]], ColZ),
 		transpose(ColZ, RowZ),
 	adjacency(RowZ), adjacency(ColZ).
 
-sum_cons(L, S) :- sum(L, #=, S).
+sum_eq(L, S) :- sum(L, #=, S).
 
 lines([], []).
 lines([H|T], C) :- lines(T, Ct), line(H, Ch), append(Ct, Ch, C).
