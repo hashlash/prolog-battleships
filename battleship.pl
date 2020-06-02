@@ -1,28 +1,28 @@
 :- use_module(library(clpfd)).
 
-battleship(Ships, Nrow, Ncol, Rows) :-
-	same_length(Nrow, Rows), maplist(same_length(Ncol), Rows),
+battleship(Ships, RowCl, ColCl, Rows) :-
+	same_length(RowCl, Rows), maplist(same_length(ColCl), Rows),
 	append(Rows, Vs), Vs ins 0..1,
 	transpose(Rows, Cols),
 	% row and col ship segment
-	maplist(sum_cons, Rows, Nrow),
-	maplist(sum_cons, Cols, Ncol),
+	maplist(sum_eq, Rows, RowCl),
+	maplist(sum_eq, Cols, ColCl),
 	% number of ships constraint
-	sum(Ships, #=, Nmul),
-		length(Omul, Nmul), maplist(=(1), Omul),
-		append(Omul, Ships, Sadv),
-	lines(Rows, Crow), lines(Cols, Ccol), append(Crow, Ccol, C),
-	msort(C, Csort), msort(Sadv, Csort),
+	sum_eq(Ships, SegC),
+		length(Ones, SegC), maplist(=(1), Ones),
+		append(Ones, Ships, ShipsAug),
+	lines(Rows, RowSh), lines(Cols, ColSh), append(RowSh, ColSh, Sh),
+	msort(Sh, SortedSh), msort(ShipsAug, SortedSh),
 	% no adjacent ship
-	same_length(ZeroRow, Cols), maplist(=(0), ZeroRow),
-		append([[ZeroRow], Rows, [ZeroRow]], TempRow),
-		transpose(TempRow, TempCol),
-	same_length(ZeroCol, TempRow), maplist(=(0), ZeroCol),
-		append([[ZeroCol], TempCol, [ZeroCol]], ColZ),
+	same_length(ZeroR, Cols), maplist(=(0), ZeroR),
+		append([[ZeroR], Rows, [ZeroR]], TempR),
+		transpose(TempR, TempC),
+	same_length(ZeroC, TempR), maplist(=(0), ZeroC),
+		append([[ZeroC], TempC, [ZeroC]], ColZ),
 		transpose(ColZ, RowZ),
 	adjacency(RowZ), adjacency(ColZ).
 
-sum_cons(L, S) :- sum(L, #=, S).
+sum_eq(L, S) :- sum(L, #=, S).
 
 lines([], []).
 lines([H|T], C) :- lines(T, Ct), line(H, Ch), append(Ct, Ch, C).
@@ -54,7 +54,7 @@ surrounds([0,0,0|T1],
 surrounds([0,0,0|T1],
           [1,1,0|T2],
           [0,0,0|T3]) :- surrounds([0,0|T1],
-                                   [1,1|T2],
+                                   [1,0|T2],
                                    [0,0|T3]).
 surrounds([0,0,0|T1],
           [1,1,1|T2],
@@ -66,44 +66,3 @@ adjacency([_,_]).
 adjacency([As,Bs,Cs|T]) :-
 	surrounds(As, Bs, Cs),
 	adjacency([Bs,Cs|T]).
-
-problem(1,
-        [1,2,3],
-        [1,1,2,2],
-        [3,0,1,2],
-        [[_,_,_,_],
-         [_,_,_,_],
-         [_,_,_,_],
-         [_,_,_,_]]).
-
-% more than one solution
-problem(2,
-        [1,1,1,1],
-        [1,1,1,1],
-        [1,1,1,1],
-        [[_,_,_,_],
-         [_,_,_,_],
-         [_,_,_,_],
-         [_,_,_,_]]).
-
-% no solution
-problem(3,
-        [1,2,3],
-        [1,1,2,2],
-        [3,0,1,2],
-        [[_,_,0,_],
-         [1,_,_,_],
-         [_,_,_,_],
-         [_,_,_,_]]).
-
-% https://puzzlemadness.co.uk/battleships/small/2020/5/19
-problem(4,
-        [1, 1, 1, 2, 2, 3],
-        [1, 2, 2, 2, 2, 1],
-        [0, 4, 0, 4, 0, 2],
-        [[_, _, _, _, _, _],
-         [_, _, _, 0, _, _],
-         [_, _, _, 1, _, 0],
-         [_, _, _, 1, 0, 1],
-         [_, _, _, _, _, 0],
-         [_, _, _, _, _, _]]).
