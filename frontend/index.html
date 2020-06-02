@@ -27,7 +27,7 @@
                 it = data.values(),
                 puzzlemadnessUrl = it.next().value;
 
-            fetch('https://cors-anywhere.herokuapp.com/' + puzzlemadnessUrl)
+            fetch('https://cors-anywhere.herokuapp.com/' + puzzlemadnessUrl, {mode: 'cors'})
                 .then(response => response.text())
                 .then(html => {
                     var parser = new DOMParser(),
