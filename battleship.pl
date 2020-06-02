@@ -11,8 +11,8 @@ battleship(Ships, RowCl, ColCl, Rows) :-
 	sum_eq(Ships, SegC),
 		length(Ones, SegC), maplist(=(1), Ones),
 		append(Ones, Ships, ShipsAug),
-	lines(Rows, RowC), lines(Cols, ColC), append(RowC, ColC, Cs),
-	msort(Cs, SortedC), msort(ShipsAug, SortedC),
+	lines(Rows, RowSh), lines(Cols, ColSh), append(RowSh, ColSh, Sh),
+	msort(Sh, SortedSh), msort(ShipsAug, SortedSh),
 	% no adjacent ship
 	same_length(ZeroR, Cols), maplist(=(0), ZeroR),
 		append([[ZeroR], Rows, [ZeroR]], TempR),
