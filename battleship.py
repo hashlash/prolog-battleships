@@ -17,5 +17,10 @@ def grid_none_to_prologany(grid):
 
 
 def solve(ships, row_clues, col_clues, grid):
-    query = f'Rows={grid}, battleship({ships}, {row_clues}, {col_clues}, Rows)'
+    query = 'Rows={grid}, battleship({ships}, {row_clues}, {col_clues}, Rows)'.format(
+        ships=ships,
+        row_clues=row_clues,
+        col_clues=col_clues,
+        grid=grid,
+    )
     return prolog.query(query)
