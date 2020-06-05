@@ -1,19 +1,18 @@
 import http.server
 import json
+import os
+
 from battleship import PrologAny, solve
 
-PORT = 8000
+PORT = int(os.environ.get('PORT', 8000))
+os.chdir(os.path.join(os.path.dirname(__file__), 'frontend'))
 
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        kwargs['directory'] = 'frontend/'
-        super().__init__(*args, **kwargs)
-
     def do_POST(self):
         length = self.headers['content-length']
         data = self.rfile.read(int(length))
-        data = json.loads(data)
+        data = json.loads(data.decode('utf-8'))
         ships = data['ships']
         row_clues = data['rowClues']
         col_clues = data['colClues']
